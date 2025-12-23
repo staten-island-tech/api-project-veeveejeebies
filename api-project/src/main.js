@@ -1,4 +1,4 @@
-[
+/* const characters = [
   {
     "_id": 112,
     "films": [
@@ -822,9 +822,27 @@
     "imageUrl": "https://static.wikia.nocookie.net/disney/images/4/41/Athena_TLM.jpg",
     "url": "https://api.disneyapi.dev/characters/351"
   }
-]
+] */
 
-id = {};
-id.films.forEach(())
+async function getData(characters) {
+  try {
+     const response = await fetch(`https://api.disneyapi.dev/character/${characters}`);
 
-let film = FileSystemDirectoryEntry;
+    if (response.status != 200) {
+      throw new Error(response);
+      else {
+
+        const data = await response.json();
+        console.log(data);
+        document.getElementById("api-response").textContent = data.name;
+      }
+    }
+   
+  } catch (error) {
+      console.log(error)
+    }
+}
+
+
+
+console.log(characters[0].name);
