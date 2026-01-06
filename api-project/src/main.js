@@ -824,21 +824,56 @@ const characters = [
   }
 ] 
 
-  async function getData(characterId) {
+
+
+function displayItems(list) {
+  main.innerHTML = "";
+
+
+  list.forEach((characters) => {
+    main.insertAdjacentHTML(
+      "beforeend",
+      `
+        <div class="item">
+          <h1 class="title">${characters.name}</h1>
+          <img src="${characters.imageUrl}">
+          <div class="buttons">
+            <button class="more"</button>
+            
+          </div>
+        </div>                
+      `
+    );
+  });
+}
+displayItems(characters);
+
+const main = document.querySelector(".main");
+const disneyDisplay = document.getElementById("api-display");
+
+
+async function getData(characterId) {
   try {
     const response = await fetch(`https://api.disneyapi.dev/characters/${characterId}`);
+
 
     if (response.status !== 200) {
       throw new Error("Failed to fetch data");
     }
 
+
     const data = await response.json();
     console.log(data);
 
+
     document.getElementById("api-response").textContent = data.data.name;
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
-} 
+}
+
 
 getData(351);
+
+ 
