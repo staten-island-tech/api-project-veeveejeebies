@@ -1,4 +1,4 @@
-const characters = [
+/* const characters = [
   {
     "_id": 112,
     "films": [
@@ -822,8 +822,9 @@ const characters = [
     "imageUrl": "https://static.wikia.nocookie.net/disney/images/4/41/Athena_TLM.jpg",
     "url": "https://api.disneyapi.dev/characters/351"
   }
-] 
-
+] */
+const main = document.querySelector(".main");
+const disneyDisplay = document.getElementById("api-display");
 
 
 function displayItems(list) {
@@ -833,12 +834,12 @@ function displayItems(list) {
   list.forEach((characters) => {
     main.insertAdjacentHTML(
       "beforeend",
-      `
-        <div class="item">
+      `     
+        <div class="main">
           <h1 class="title">${characters.name}</h1>
           <img src="${characters.imageUrl}">
           <div class="buttons">
-            <button class="more"</button>
+            <button class="more">Show More</button>
             
           </div>
         </div>                
@@ -847,9 +848,8 @@ function displayItems(list) {
   });
 }
 displayItems(characters);
+const buttons = document.querySelectorAll(".more");
 
-const main = document.querySelector(".main");
-const disneyDisplay = document.getElementById("api-display");
 
 
 async function getData(characterId) {
@@ -861,10 +861,8 @@ async function getData(characterId) {
       throw new Error("Failed to fetch data");
     }
 
-
     const data = await response.json();
     console.log(data);
-
 
     document.getElementById("api-response").textContent = data.data.name;
   }
@@ -872,8 +870,26 @@ async function getData(characterId) {
     console.log(error);
   }
 }
+  buttons.forEach((btn, index) => {
+    btn.addEventListener("click", function () {
+      const character = characters[index];
+  const characterDisplay = document.getElementById("api-display");
 
+      characterDisplay.insertAdjacentHTML(
+        "beforeend",
+        `<p>${character.name}</p>`
+      );
+    });
+  });
+
+
+  function
 
 getData(351);
+
+
+
+
+/* if statement put here */
 
  
