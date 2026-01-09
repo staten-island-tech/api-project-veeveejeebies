@@ -1,12 +1,33 @@
 
 const main = document.querySelector(".main");
-const apiDisplay = document.getElementById("api-display");
+const searchCharacters = document.getElementById("search-characters");
+let getCharacters = []; 
 
-let characters = [];        // array
 
  async function getCharacters() {
   try {
-    const response = await fetch(`https://api.disneyapi.dev/character`);
+    const response = await fetch("https://api.disneyapi.dev/characters");
+    if (response.status !== 200) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data = await response.json();
+
+    allCharacters = data.data;
+
+    document.getElementById("api-display").textContent = allCharacters[0].name; 
+  
+    displayItems(allCharacters);
+
+  }
+    catch (error) {
+    console.log(error);
+  }
+}
+
+ async function filterCharacters() {
+  try {
+     const response = await fetch(`https://api.disneyapi.dev/character`);
 
 
     if (response.status !== 200) {
@@ -14,65 +35,32 @@ let characters = [];        // array
     }
 
 
-    const data = await response.json();
+    const filtered = await response.json();
     console.log(data);
 
 
     document.getElementById("api-display").textContent = data.data.name;
-    displayItems(characters);
+    displayItems(data);
   }
   catch (error) {
     console.log(error); 
   }
-}
+ }
 
-  function displayItems(list) {
-  main.innerHTML = "";
+function displayItems(list) {
+  main.innerHTML = ""; 
 
   list.forEach((character) => {
     main.insertAdjacentHTML(
       "beforeend",
       `
-      <div class="main">
-        <h2>${character.name}</h2>
-        <img src="${character.imageUrl}">
-        <button class="more" data-id="${character._id}">Show More</button>
-      </div>
+        <div class="item">
+          <h1 class="title">${character.name}</h1>
+          <img src="${character.imageUrl}" alt="${character.name}">
+        </div>
       `
     );
   });
 }
-displayItems(characters);
-const buttons = document.querySelectorAll(".more");
-
-
-async function getSingleCharacter(id) {
-  try {
-    const response = await fetch(
-      `https://api.disneyapi.dev/characters/${id}`
-    );
-    const data = await response.json();
-
-    const character = data.data;
-
-    apiDisplay.innerHTML = `
-      <h2>${character.name}</h2>
-      <p>Films: ${character.films.join(",") || "None"}</p>
-      <p>TV Shows: ${character.tvShows.join(",") || "None"}</p>
-    `;
-
-  
-  } 
-    catch (error) {
-    console.error(error);
-  }
-}
 
 getCharacters();
-
-
-
-
-/* if statement put here */
-
- 
