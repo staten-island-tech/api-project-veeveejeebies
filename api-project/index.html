@@ -1,23 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Disney Characters</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Disney Characters</title>
+  </head>
 
-  <input type="text" placeholder="Search" id="search-characters">
-  <div id="api-display"></div>
+  <body class="bg-base-200">
+    <div class="p-6">
+      <input id="search-characters" type="text" placeholder="Search characters..." class="input input-bordered w-full max-w-md" /> </div>
 
-<div class="main"></div>
+    <div class="main grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6" ></div>
 
-<div id="showCharacter" class="card" ></div>
-  <button id="exitBtn">Close</button>
-  <div id="info"></div>
-</div>
-  
+    <div id="showCharacter" class="card bg-base-100 fixed bottom-0 left-0 w-full shadow-xl hidden z-50" >
 
-  <script type="module" src="/src/main.js"></script>
-</body>
+
+      <div class="card-body">
+        <div class="flex items-center justify-between">
+          <h2 class="card-title">Disney Character</h2>
+          <button id="exitBtn" class="btn btn-sm btn-circle btn-ghost">✕</button>
+        </div>
+
+        <div id="info" class="mt-2"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

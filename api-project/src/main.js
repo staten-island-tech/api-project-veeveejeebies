@@ -32,18 +32,16 @@ function filterCharacters() {
 function displayItems(list) {
   main.innerHTML = "";
 
-  list.forEach(character => {
+  list.forEach((character) => {
     main.insertAdjacentHTML(
       "beforeend",
       `
-      <div class="main">
-        <img class="h-48 w-full object-cover" src="${character.imageUrl || ""}" alt="${character.name}">
-
-        <div class="card-body">
-          <h2 class="card-title">${character.name}</h2>
-
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary moreInfo">More Info</button>
+      <div class="card bg-base-100 w-full shadow-sm">
+ <figure> <img src="${character.imageUrl || ""}" alt="${character.name}" class="h-48 w-full object-cover" </figure>
+    <div class="card-body">
+    <h2 class="card-title">${character.name}</h2>
+    <div class="card-actions justify-end">
+    <button class="btn btn-primary moreInfo">More Info</button>
           </div>
         </div>
       </div>
@@ -51,9 +49,8 @@ function displayItems(list) {
     );
   });
 
-  addInfoButtons(list); 
+  addInfoButtons(list);
 }
-
 function addInfoButtons(list) {
   const buttons = document.querySelectorAll(".moreInfo");
 
@@ -67,7 +64,8 @@ function addInfoButtons(list) {
 function showInfo(list, index) {
   const charsiu = list[index];
 
-  document.getElementById("showCharacter").style.display = "block";
+  document.getElementById("showCharacter").classList.remove("hidden");
+
 
   document.getElementById("info").innerHTML = `
     <h2>${charsiu.name}</h2>
@@ -84,7 +82,7 @@ function showInfo(list, index) {
 }
 
 document.getElementById("exitBtn").addEventListener("click", function () {
-  document.getElementById("showCharacter").style.display = "none";
+  document.getElementById("showCharacter").classList.add("hidden");
 });
 
 searchBar.addEventListener("input", filterCharacters);
